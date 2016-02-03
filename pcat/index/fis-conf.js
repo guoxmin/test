@@ -3,7 +3,6 @@ fis.set('name', meta.name);
 fis.set('version', meta.version);
 
 
-
 function getTemplate(tag,ret) {
     var fileName = tag.split("-")[1];
 
@@ -47,11 +46,7 @@ function render(content,ret) {
     if (widgets) {
         content = content.replace(pattern, function(tag, name, props) {
 
-            // var propsObj = querystring.parse(props.trim().replace(/\s+/g,"&"));
-            //id="44444" hh height=" 667px " style = "height:100px; border:1px solid #f00;"
 
-            // console.log(props);
-            // console.log(props.split(/\s+/));
             
             var propsObj = {};
             
