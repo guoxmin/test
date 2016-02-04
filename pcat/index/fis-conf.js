@@ -32,8 +32,7 @@ var regString = "<(w-[a-z]+)([^>]+)*(?:>(.*)<\\/\\1>|\\s+\\/)";
 //匹配{{val}}
 var propReg = /{{([^{}]+)}}/gmi;
 
-//匹配标签的属性和值 k=v
-var prostr = /(\S+)\s*\=\s*("[^"]*")|('[^']*')/gi;
+
 
 
 //获取组件列表
@@ -161,7 +160,7 @@ fis.media('qa').match("/widget/**/(*.js)", {
               
                 var content = render(file.getContent(),ret.src);
 
-                  file.setContent(content);
+                  // file.setContent(content);
 
             }
         })
@@ -169,7 +168,7 @@ fis.media('qa').match("/widget/**/(*.js)", {
 })
 
 .match("map.json", {
-    useHash: true,
+    useHash: false,
     release: "${name}/${version}/$0",
     deploy: fis.plugin('local-deliver', {
         // to: '../qa/map/'
