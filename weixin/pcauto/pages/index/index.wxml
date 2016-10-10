@@ -1,0 +1,18 @@
+<!--index.wxml-->
+<view class="container">
+    <view class="box flex-box-row">
+        <view class="location">
+            <text class="location">广州</text>
+        </view>
+
+        <view class="searchBox">
+            <view class="search">
+                <input placeholder="请输入品牌或车型" disabled= "true" placeholder-class="search-placeholder" bindtap="goSearch" />
+                <icon type="search" size="20"/>
+            </view>
+        </view>
+        
+    </view>
+   
+</view>
+

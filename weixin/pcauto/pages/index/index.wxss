@@ -1,0 +1,13 @@
+/**index.wxss**/
+.test{
+  background: #f00;
+  width: 700rpx;
+  font-size: 18pt;
+}
+.location{
+  width: 3rem;
+  line-height: 36px;
+}
+.searchBox{
+ flex: 1;
+}
