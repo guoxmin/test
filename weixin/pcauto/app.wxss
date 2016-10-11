@@ -3,15 +3,21 @@
   background: #eee;
   height: 100%;
 }
-.box{
-  padding: 20rpx;
-  background: #fff;
+.flex-column{
+  display: flex;
+   flex-direction:column;
 }
 
-.flex-box-row{
+.flex-row{
   display: flex;
    flex-direction:row;
 }
+.box{
+  padding: 10px;
+  background: #fff;
+}
+
+
 
 /*搜索框*/
 .search{
@@ -22,11 +28,12 @@
   width: 100%;
   height: 36px;
   background:#efeff1;
+  padding: 0 40px 0 10px;
+  box-sizing: border-box;
   border-radius: 5px;
 }
 .search-placeholder{
   color:#999; 
-  padding-left:10px; 
   font-size:1rem;
 }
 .search icon{

@@ -1,1 +1,13 @@
-行行行
+<view class="container flex-column">
+    <view class="box search-box">
+        <view class="search">
+            <input placeholder="请输入关键字" focus= "true" bindinput="bindKeyInput" placeholder-class="search-placeholder" />
+            <icon type="search" size="20"/>
+        </view>
+    </view>
+    <view class="searchList-box">
+        <scroll-view class="search-list" scroll-y="true" >
+            <navigator  wx:for="{{items}}" class="search-item" url="../index/index" hover-class="navigator-hover">{{item}}</navigator>
+        </scroll-view>
+    </view>
+</view>

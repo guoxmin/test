@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="container">
-    <view class="box flex-box-row">
+    <view class="box flex-row">
         <view class="location">
             <text class="location">广州</text>
         </view>
@@ -13,6 +13,6 @@
         </view>
         
     </view>
-   
+
 </view>
 

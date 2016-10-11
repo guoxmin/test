@@ -11,7 +11,7 @@ Page( {
   //事件处理函数
   goSearch: function() {
     wx.navigateTo( {
-      url: '../pages/search/search'
+      url: '../search/search'
     })
   },
   onLoad: function() {
