@@ -1,5 +1,5 @@
 <view class="container flex-column">
-    <view class="box search-box">
+    <view class="area search-box">
         <view class="search">
             <input placeholder="请输入关键字" focus= "true" bindinput="bindKeyInput" placeholder-class="search-placeholder" />
             <icon type="search" size="20"/>

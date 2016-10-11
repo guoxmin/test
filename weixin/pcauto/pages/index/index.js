@@ -5,8 +5,12 @@
 var app = getApp()
 Page( {
   data: {
-    motto: 'Hello World',
-    userInfo: {}
+    toView:"",
+    animationData:{},
+    tabIndex:0,
+    slide:false,
+    brand: {}
+      
   },
   //事件处理函数
   goSearch: function() {
@@ -15,16 +19,77 @@ Page( {
     })
   },
   onLoad: function() {
+
+    this.getBrand();
    
-    // console.log( 'onLoad' )
-    // var that = this
-    // //调用应用实例的方法获取全局数据
-    // app.getUserInfo( function( userInfo ) {
-    //   //更新数据
-    //   that.setData( {
-    //     userInfo: userInfo
-    //   })
-    // })
+  },
+  getBrand:function(){
+
+    var self = this;
+
+    wx.request({
+      url: 'http://price.pcauto.com.cn/api/hcs/select/dashouye/brand_json_chooser?data=json&v2',
+      
+      success: function(res) {
+        self.setData({
+          brand:res
+        })
+      }
+    })
+  },
+  goToView:function(e){
+    this.setData({
+        toView:e.currentTarget.dataset.captial
+      })
+  },
+  scroll:function(e){
+    // console.log(e)
+  },
+  openSlide:function(e){
+    
+    this.setData({
+     slide:true
+    })
+
+    var animation = wx.createAnimation({
+        duration: 800,
+        timingFunction: 'ease',
+    })
+
+    
+
+    animation.right(0).step()
+
+    this.setData({
+      animationData:animation.export()
+    })
+    
+  },
+  closeSlide:function(){
+   
+
+    var animation = wx.createAnimation({
+        duration: 800,
+        timingFunction: 'ease',
+    })
+
+
+    animation.right("-13rem").step()
+
+    this.setData({
+      animationData:animation.export()
+    })
+
+    setTimeout(function(){
+      this.setData({
+        slide:false
+      })
+    }.bind(this),820)
+  },
+  tab:function(e){
+    this.setData({
+      tabIndex:e.currentTarget.dataset.index
+    })
   }
 })
 

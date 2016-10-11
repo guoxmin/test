@@ -1,18 +1,231 @@
 <!--index.wxml-->
-<view class="container">
-    <view class="box flex-row">
-        <view class="location">
-            <text class="location">广州</text>
-        </view>
 
-        <view class="searchBox">
-            <view class="search">
-                <input placeholder="请输入品牌或车型" disabled= "true" placeholder-class="search-placeholder" bindtap="goSearch" />
-                <icon type="search" size="20"/>
+<scroll-view class="container" scroll-y="true" bindscroll="scroll" scroll-into-view="{{toView}}">
+
+    <view class="area">
+        <!--地区和搜索区-->
+        <view class="flex-row">
+            <view class="location">
+                <text class="location">广州</text>
+            </view>
+
+            <view class="searchBox">
+                <view class="search">
+                    <input placeholder="请输入品牌或车型" disabled= "true" placeholder-class="search-placeholder" bindtap="goSearch" />
+                    <icon type="search" size="20"/>
+                </view>
             </view>
         </view>
+
+        <!--条件选车-->
+         <view class="box mt15">
+            <view class="th">
+                <text class="mark">条件选车</text>
+                <view class="subMark">更多条件选车></view>
+            </view>
+            <view class="tb">
+                <view class="list-sort">
+                    <view class="sort-item">5万以下</view>
+                    <view class="sort-item">5-8万</view>
+                    <view class="sort-item">8-12万</view>
+                    <view class="sort-item">12-18万</view>
+                    <view class="sort-item">小型车</view>
+                    <view class="sort-item">紧凑型车</view>
+                    <view class="sort-item">中型车</view>
+                    <view class="sort-item">SUV</view>
+                </view>
+            </view>
+         </view>
+
+
+          <!--热门推荐-->
+         <view class="box mt15">
+            <view class="th">
+                <text class="mark">热门推荐</text>
+            </view>
+            <view class="tb">
+                <view class="pic-text picText-vertial picText-w50 mt10">
+                    <view>
+                        <image src="http://img2.pcauto.com.cn/pcauto/1011/29/1328175_mercedesbenz.png"></image>
+                        <text>奔驰</text>
+                    </view>
+                    <view>
+                        <image src="http://img3.pcauto.com.cn/pcauto/1011/29/1328238_bmw_1.png"></image>
+                        <text>宝马</text>
+                    </view>
+                    <view>
+                        <image src="http://img.pcauto.com.cn/images/upload/upc/tx/auto5/1604/22/c18/20630381_1461312314537_50x50.png"></image>
+                        <text>奥迪</text>
+                    </view>
+                     <view>
+                        <image src="http://img.pcauto.com.cn/images/upload/upc/tx/auto5/1608/08/c22/25283184_1470640355488_50x50.png"></image>
+                        <text>本田</text>
+                    </view>
+                    
+                    <view>
+                        <image src="http://img2.pcauto.com.cn/pcauto/1011/29/1328156_toyota.png"></image>
+                        <text>丰田</text>
+                    </view>
+                </view>
+
+                 <view class="pic-text picText-vertial picText-w100 mt10">
+                    <view>
+                        <image src="http://img.pconline.com.cn/images/upload/upc/tx/auto5/1404/10/c5/32976688_1397100928636_270x202.jpg"></image>
+                        <text>奇骏</text>
+                    </view>
+                    <view>
+                        <image src="http://img.pcauto.com.cn/images/upload/upc/tx/auto5/1609/17/c9/27077727_27077727_1474090913942_270x202.jpg"></image>
+                        <text>昂科威</text>
+                    </view>
+                    <view>
+                        <image src="http://img.pcauto.com.cn/images/upload/upc/tx/auto5/1607/01/c5/23602625_23602625_1467336609718_270x202.jpg"></image>
+                        <text>CRV</text>
+                    </view>
+                </view>
+
+            </view>
+         </view>
+        
         
     </view>
 
-</view>
+    <!--brand-library s-->
+    <template name="brand-library">
+
+        <view wx:if="{{caption}}" id="caption-{{caption}}" class="caption">{{caption}}</view>
+        <view wx:else class="list-item" data-data="{{name+'-'+id}}" bindtap="openSlide">
+            <view>
+                <image src="http://zzb.pcauto.com.cn/tools/img/?30x30"></image>
+                <text>{{name}}</text>
+            </view>
+        </view>
+           
+    </template>
+    <!--brand-library e-->
+
+     <view class="brand-library">
+            <template is="brand-library" wx:for="{{brand.data.brands}}" data="{{...item}}" ></template>
+     </view>
+
+
+    <!--首字母导航-->
+    <template name="captial">
+        <view wx:if="{{caption}}" data-captial="caption-{{caption}}" bindtap="goToView">{{caption}}</view>
+    </template>
+
+    <view class="captial">
+        <template is="captial" wx:for="{{brand.data.brands}}" data="{{...item}}" ></template>
+    </view>
+
+
+    <!--滑块层-->
+    <block wx:if="{{slide}}" name="slide">
+        <view class="slide" animation="{{animationData}}">
+            <view class="title">选择车系</view>
+            <view class="tab-menu">
+                <view class="tab-menuItem {{tabIndex=='0' ? 'cur':''}}" data-index="0" bindtap="tab">在售</view>
+                <view class="tab-menuItem {{tabIndex=='1' ? 'cur':''}}" data-index="1" bindtap="tab">全部</view>
+            </view>
+
+            <view class="tab-content mt15">
+                <view class="tab-contentItem"  wx:if="{{tabIndex=='0'}}">
+                    <view class="box2">
+                        <view class="th">
+                             <text class="mark">广汽本田</text>
+                        </view>
+                        <view class="tb">
+                            <view class="pic-text2">
+                                <image src="http://zzb.pcauto.com.cn/tools/img/?50x50"></image>
+                                <view class="text">
+                                    <text>奥德赛</text>
+                                    <view class="price">官方价: <text>22.98-29.98</text></view>
+                                </view>
+                            </view>
+                           
+                        </view>
+                    </view>
+                     <view class="box2">
+                        <view class="th">
+                             <text class="mark">东方本田</text>
+                        </view>
+                        <view class="tb">
+                            <view class="pic-text2">
+                                <image src="http://zzb.pcauto.com.cn/tools/img/?50x50"></image>
+                                <view class="text">
+                                    <text>奥德赛</text>
+                                    <view class="price">官方价: <text>22.98-29.98</text></view>
+                                </view>
+                            </view>
+                           
+                        </view>
+                    </view>
+                </view>
+                <view class="tab-contentItem" wx:if="{{tabIndex=='1'}}">
+                    <view class="box2">
+                        <view class="th">
+                             <text class="mark">广汽本田</text>
+                        </view>
+                        <view class="tb">
+                            <view class="pic-text2">
+                                <image src="http://zzb.pcauto.com.cn/tools/img/?50x50"></image>
+                                <view class="text">
+                                    <text>奥德赛</text>
+                                    <view class="price">官方价: <text>22.98-29.98</text></view>
+                                </view>
+                            </view>
+                            <view class="pic-text2">
+                                <image src="http://zzb.pcauto.com.cn/tools/img/?50x50"></image>
+                                <view class="text">
+                                    <text>奥德赛</text>
+                                    <view class="price">官方价: <text>22.98-29.98</text></view>
+                                </view>
+                            </view>
+                            <view class="pic-text2">
+                                <image src="http://zzb.pcauto.com.cn/tools/img/?50x50"></image>
+                                <view class="text">
+                                    <text>奥德赛</text>
+                                    <view class="price">官方价: <text>22.98-29.98</text></view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                     <view class="box2">
+                        <view class="th">
+                             <text class="mark">东方本田</text>
+                        </view>
+                        <view class="tb">
+                            <view class="pic-text2">
+                                <image src="http://zzb.pcauto.com.cn/tools/img/?50x50"></image>
+                                <view class="text">
+                                    <text>奥德赛</text>
+                                    <view class="price">官方价: <text>22.98-29.98</text></view>
+                                </view>
+                            </view>
+                            <view class="pic-text2">
+                                <image src="http://zzb.pcauto.com.cn/tools/img/?50x50"></image>
+                                <view class="text">
+                                    <text>奥德赛</text>
+                                    <view class="price">官方价: <text>22.98-29.98</text></view>
+                                </view>
+                            </view>
+                            <view class="pic-text2">
+                                <image src="http://zzb.pcauto.com.cn/tools/img/?50x50"></image>
+                                <view class="text">
+                                    <text>奥德赛</text>
+                                    <view class="price">官方价: <text>22.98-29.98</text></view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            
+        </view>
+        <view class="mask" bindtap="closeSlide"></view>
+    </block>
+
+    <!--<template is="slide" wx:if="{{slide}}" data="{{...tab}}" ></template>-->
+
+</scroll-view>
+
 
