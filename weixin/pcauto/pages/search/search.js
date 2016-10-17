@@ -6,6 +6,7 @@ Page( {
         items:[]
     },
      bindKeyInput: function(e) {
+         
         this.setData({
             // 模拟多条数据
             items: function(value){

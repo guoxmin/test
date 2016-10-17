@@ -5,6 +5,7 @@
 var app = getApp()
 Page( {
   data: {
+    flag:true,
     toView:"",
     animationData:{},
     tabIndex:0,

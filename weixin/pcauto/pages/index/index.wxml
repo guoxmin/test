@@ -1,7 +1,5 @@
 <!--index.wxml-->
-
 <scroll-view class="container" scroll-y="true" bindscroll="scroll" scroll-into-view="{{toView}}">
-
     <view class="area">
         <!--地区和搜索区-->
         <view class="flex-row">
