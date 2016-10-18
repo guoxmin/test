@@ -1,8 +1,9 @@
 {
   "pages":[
+    "pages/canpei2/canpei2",
+    "pages/index/index",
     "pages/canpei/canpei",
     "pages/test/test",
-    "pages/index/index",
     "pages/search/search"
   ],
   "window":{
