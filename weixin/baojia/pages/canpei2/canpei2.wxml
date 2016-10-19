@@ -9,7 +9,6 @@
 				<view class="table-row">
 					<view class="table-cell" bindtap="toggle">{{toggle ? "隐藏相同项":"显示全部"}}</view>
 				</view>
-
 				
 			</view>
 			
@@ -21,10 +20,8 @@
 			
 				<scroll-view class="scroll-x " bindscroll="scrollX" scroll-left="{{scrollLeft}}" scroll-x="true">
 					<view class="scroll-x-box">
-
-					
 							    
-					<view wx:for="{{carData.detailArray}}" class="table" style="overflow: hidden">
+					<view wx:for="{{toggle?carData.detailArray:carData.diffArray}}" class="table" style="overflow: hidden">
 
 						<view class="table-row table-th">
 							<view class="table-cell">{{item.modelName}}</view>
@@ -64,11 +61,10 @@
 						</block>
 					</template>
 
-					<block wx:for="{{carData.detailArray[0].detail}}">
+					<block wx:for="{{ toggle ? carData.detailArray[0].detail:carData.diffArray[0].detail}}">
 					    <template is="list" data="{{...item}}"/>
 					</block>
 										
-					
 				</view>
 				
 			</view>
@@ -80,7 +76,6 @@
 			
 				<scroll-view class="scroll-x " bindscroll="scrollX" scroll-left="{{scrollLeft}}" scroll-x="true">
 					<view class="scroll-x-box">
-		    
 					
 						<template name="list2">
 						  	<view class="table-row table-th">
@@ -94,20 +89,13 @@
 							</block>
 						</template>
 
-
-
-					<view  wx:for="{{carData.detailArray}}" class="table" style="overflow: hidden">
+					<view  wx:for="{{toggle?carData.detailArray:carData.diffArray}}" class="table" style="overflow: hidden">
 
 						<block wx:for="{{item.detail}}">
 						    <template is="list2" data="{{...item}}"/>
 						</block>
-
 						
 					</view>
-
-
-					
-
 
 				</view>
 				</scroll-view>

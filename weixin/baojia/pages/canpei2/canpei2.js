@@ -25,6 +25,105 @@ Page({
             toggle: !this.data.toggle
         })
     },
+    // 去除相同数据，用于隐藏相同项功能
+    deleteSameData: function(data) {
+
+
+        // copy
+        // var diffArr = JSON.parse(JSON.stringify(data.detailArray));
+        var diffArr = data.detailArray.slice(0)
+
+        if (diffArr.length == 0) return;
+
+        var detail = diffArr[0].detail;
+
+
+        detail.forEach(function(item, index) {
+
+            var index2 = 0,
+                groupDetailLength = item.groupDetail.length;
+
+            for (index2; index2 < groupDetailLength; index2++) {
+
+                var item2 = item.groupDetail[index2];
+
+
+                if (index2 % 2 != 0) {
+                    var temp = [];
+                    temp.push(item2);
+
+                    diffArr.slice(1).forEach(function(item3, index3) {
+
+                        temp.push(item3.detail[index].groupDetail[index2])
+                    })
+
+
+                    // 判断数组各项值是否相同
+                    temp = temp.sort();
+
+                    if (temp[0] == temp[temp.length - 1]) {
+                        // console.log(temp);
+
+                        diffArr.forEach(function(item3, index3) {
+
+                            // item3.detail[index].groupDetail[index2]
+                            
+
+
+                           item3.detail[index].groupDetail.splice(index2 - 1, 2);
+
+                            index2 -= 2;
+                            groupDetailLength -= 2;
+
+                        })
+
+                    }
+
+                }
+
+            }
+
+            // item.groupDetail.forEach(function(item2,index2){
+
+            //     if(index2%2!=0){
+            //         var temp = [];
+            //         temp.push(item2);
+
+            //         diffArr.slice(1).forEach(function(item3,index3){
+
+            //             temp.push(item3.detail[index].groupDetail[index2])
+            //         })
+
+
+            //         // 判断数组各项值是否相同
+            //         temp = temp.sort();
+
+            //         if(temp[0] == temp[temp.length-1]){
+            //             // console.log(temp);
+
+            //             diffArr.forEach(function(item3,index3){
+
+            //                  // item3.detail[index].groupDetail[index2]
+            //                  var d = item3.detail[index].groupDetail.splice(index2-1,2);
+
+            //                  console.log(d)
+            //             })
+
+            //         } 
+
+            //     }
+
+
+            // })
+
+
+
+        })
+
+        return diffArr;
+
+
+    },
     // 初始化车型数据
     initCarData: function() {
         var self = this;
@@ -38,12 +137,20 @@ Page({
                 'Content-Type': 'application/json'
             },
             success: function(res) {
-                console.log(res.data)
+
+                var data = res.data;
+                console.log(data)
+
+                // 添加去重数据
+                var diffArray = self.deleteSameData(res.data);
+
+                data.diffArray = diffArray;
+                
                 self.setData({
-                    carData: res.data
+                    carData: data
                 })
 
-                self.initDiff(res.data);
+
             }
         })
 

@@ -5,6 +5,7 @@ Page({
         startY: 0
     },
     touchstart: function(e) {
+         
         var clientX = e.touches[0].clientX,
             clientY = e.touches[0].clientY;
 
@@ -14,6 +15,7 @@ Page({
         })
     },
     touchmove: function(e) {
+       console.log(e)
         var clientX = e.touches[0].clientX,
             clientY = e.touches[0].clientY;
 
