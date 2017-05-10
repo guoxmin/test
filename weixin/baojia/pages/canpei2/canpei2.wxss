@@ -1,0 +1,100 @@
+/* layout */
+.lay-t{
+	width: 100%;
+	height: 4rem;
+	background: #fff;
+}
+.lay-b{
+	width: 100%;
+	flex: 1;
+	overflow: hidden;
+}
+
+
+.lay-L,
+.lay-R{
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.lay-L{
+	width: 6rem;
+	z-index: 2;
+	overflow: visible;
+	position: relative;
+}
+
+.lay-R{
+	width: 14rem;
+}
+
+
+
+
+
+.scroll-y{
+	width:20rem;
+	height: 100%;
+	background: #fff;
+}
+
+
+
+.scroll-x{
+	width: 100%;
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+.scroll-x-box{
+	width: 1500rpx;
+}
+
+
+/* table */
+.table{
+	overflow: visible;
+	display: inline-table;
+}
+.lay-L .table{
+	width: 100%;
+}
+.lay-R .table{
+	width: 250rpx;
+}
+
+.table-row {
+	height: 3rem;
+}
+
+.table-row .table-cell{
+	height: 100%;
+	width: 100%;
+}
+
+.table-th{
+	position: relative;
+	height: 2rem;
+}
+
+.table-th .table-cell{
+	height: 100%;
+	width: 20rem;
+	background: #eee;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* test */
+
+
+/* .lay-b .table-row {
+	height: 10rem;
+}
+
+.lay-b .table-th{
+	height: 2rem;
+}
+ */

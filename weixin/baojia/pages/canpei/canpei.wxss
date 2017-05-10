@@ -1,0 +1,107 @@
+.scroll-y{
+	width:20rem;
+	height: 100%;
+	background: #fff;
+}
+
+.scroll-y .scroll-L,
+.scroll-y .scroll-R{
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.scroll-y .scroll-L{
+	width: 6rem;
+	z-index: 2;
+	overflow: visible;
+	position: relative;
+}
+
+.scroll-y .scroll-R{
+	width: 14rem;
+}
+.scroll-x{
+	width: 100%;
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+.scroll-x-box{
+	width: 42rem;
+}
+
+
+/* table */
+.table{
+	overflow: visible;
+	display: inline-table;
+}
+.scroll-L .table{
+	width: 6rem;
+}
+.scroll-R .table{
+	width: 250rpx;
+}
+.table-caption{
+
+	background: #fff;
+}
+
+
+
+.table-row {
+	height: 3rem;
+}
+
+.scroll-L .table-row{
+	width: 6rem;
+}
+
+.scroll-R .table-row{
+	width: 7rem;
+}
+
+
+
+.table-th{
+	position: relative;
+	height: 2rem;
+}
+
+.table-th .table-cell{
+	height: 100%;
+	width: 20rem;
+	background: #eee;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+
+
+/* .table-row .table-cell{
+	height: 100%;
+	width: 100%;
+}
+ */
+.scroll-L .table-cell{
+	width: 6rem;
+}
+.scroll-R .table-cell{
+	width: 7rem;
+}
+.table-caption .table-cell{
+	background: #f00;
+	height: 3rem;
+	
+}
+
+.table-caption-fixed .table-caption .table-cell{
+	position: fixed;
+}
+
+
+/* test */
+
+

@@ -1,0 +1,211 @@
+/**index.wxss**/
+.location{
+  width: 3rem;
+  line-height: 36px;
+  font-size: 16px;
+}
+.searchBox{
+ flex: 1;
+}
+
+
+/*box*/
+.box .th{
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+}
+.box .mark{
+  font-size: 18px;
+}
+.box .subMark{
+  font-size: 12px;
+}
+.box .tb{
+  padding:5px;
+}
+
+/*list-sort*/
+.list-sort{
+   display: flex;
+   justify-content: space-between;
+   flex-wrap: wrap;
+   margin-top: 5px;
+}
+.list-sort .sort-item{
+  width: 4rem;
+  height: 30px;
+  line-height: 30px;
+  margin-top: 5px;
+  text-align: center;
+  border: 1px solid #eee;
+}
+
+/*pic-text*/
+.pic-text{
+  display: flex;
+  justify-content: space-between;
+}
+.pic-text text{
+  line-height: 2em;
+  vertical-align: middle;
+}
+/*picText-vertial*/
+.picText-vertial{
+  text-align: center;
+}
+.picText-vertial image{
+  display: block;
+}
+
+/*picText-w50*/
+.picText-w50 image{
+  width: 50px;
+  height: 50px;
+}
+
+/*picText-w100*/
+.picText-w100 image{
+  width: 5rem;
+  height: 4rem;
+}
+
+
+/*车型库*/
+.brand-library{
+   flex-direction: column;
+  justify-content: flex-start;
+}
+
+
+.brand-library .caption{
+  position: relative;
+  z-index: 2;
+  background: #fff;
+ 	margin: 10px 0 -1px 0;
+  font-size: 18px;
+  line-height: 2em;
+  padding: 0 10px;
+ border-bottom:1px solid #eee;
+}
+
+.brand-library .list-item{
+  padding: 0 10px;
+   background: #fff;
+  
+}
+.brand-library .list-item view{
+  padding: 15px 0;
+  border-top:1px solid #eee;
+}
+.brand-library .list-item:last-child{
+  bottom: 0;
+}
+
+.brand-library .list-item image{
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+
+
+/*captial*/
+.captial{
+  position: fixed;
+   z-index: 3;
+  top: 0;
+  right: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content:center; 
+}
+
+.captial view{
+  font-size: 14px;
+  width: 14px;
+  text-align: center;
+  padding: 2px;
+  color: cornflowerblue;
+}
+
+/*slide*/
+.mask{
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,.5);
+}
+.slide{
+  position: fixed;
+  z-index: 11;
+  top: 0;
+  right: -13rem;
+  height: 100%;
+  width: 13rem;
+  background:#fff;
+}
+
+.slide .title{
+  text-align: center;
+  font-size: 18px;
+  line-height: 3em;
+}
+
+.tab-menu{
+  display: flex;
+  width: 70%;
+  margin: 0 auto;
+  border: 1px solid #007adf;
+  border-radius: 5px;
+}
+.tab-menuItem{
+  text-align: center;
+  height: 28px;
+  line-height: 28px;
+  font-size: 16px;
+  width: 50%;
+}
+.tab-menuItem.cur{
+  background: #007adf;
+  color: #fff;
+}
+
+.box2 .th{
+  padding: 0 10px;
+  height: 30px;
+  line-height: 30px;
+  color: #777;
+  background: #f4f4f8;
+}
+
+.box2 .tb{
+  padding: 10px;
+}
+
+/*pic-text2*/
+.pic-text2{
+  display: flex;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+.pic-text2 image{
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  vertical-align: top;
+}
+
+.pic-text2 .price{
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.pic-text2 .price text{
+  color: #f00;
+}

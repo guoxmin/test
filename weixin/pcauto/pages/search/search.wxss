@@ -1,0 +1,21 @@
+.container{
+    background: #fff;
+}
+.search-box{
+    border-bottom:1px solid #999;
+}
+.searchList-box{
+ flex:1;
+ height: 100px;
+ overflow: hidden;
+}
+.search-list{
+    height: 100%;
+}
+
+.search-item{
+    height: 40px;
+    line-height: 40px;
+    margin: 0 10px;
+    border-bottom: 1px solid #eee;
+}
