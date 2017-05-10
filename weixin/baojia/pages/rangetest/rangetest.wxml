@@ -1,9 +1,0 @@
-<view class="range" catchtap="rangetap"  bindtouchstart="rangeTouchstart" bindtouchmove="rangeTouchmove" style="width:{{rangeWidth}}{{units}}">
-	<view class="range-bar" style="margin-left:{{currentRange[0]*100/RANGE[1]}}%;margin-right:{{(RANGE[1]-currentRange[1])*100/RANGE[1]}}%;"></view>
-	<view id="range-L" bindtouchend="rangeTouchend" class="range-b range-L" style="left:{{rangeLPosX}}{{units}}">{{currentRange[0]}}</view>
-	<view id="range-R" bindtouchend="rangeTouchend" class="range-b range-R"style="left:{{rangeRPosX}}{{units}}">{{currentRange[1]>100?"100+":currentRange[1]}}</view>
-</view>
-
- <loading hidden="{{loadingHidden}}" bindchange="loadingChange">
-    加载中...
-  </loading>

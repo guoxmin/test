@@ -1,8 +1,0 @@
-<swiper indicator-dots="{{indicatorDots}}"
-  autoplay="{{autoplay}}" interval="{{interval}}" current="{{current}}" duration="{{duration}}" bindchange="change">
-  <block wx:for="{{allImgUrls}}">
-    <swiper-item data-index="{{index}}">
-      <image src="{{(index==current || index==current-1 || index==current+1) ?item:blank}}" class="slide-image" width="355" height="150"/>
-    </swiper-item>
-  </block>
-</swiper>
