@@ -1,8 +1,30 @@
 <swiper indicator-dots="{{indicatorDots}}"
   autoplay="{{autoplay}}" interval="{{interval}}" current="{{current}}" duration="{{duration}}" bindchange="change">
-  <block wx:for="{{allImgUrls}}">
+  <block wx:for="{{currentList}}">
     <swiper-item data-index="{{index}}">
-      <image src="{{(index==current || index==current-1 || index==current+1) ?item:blank}}" class="slide-image" width="355" height="150"/>
+      <image src="{{item}}" class="slide-image" width="355" height="150"/>
     </swiper-item>
   </block>
 </swiper>
+
+
+<table>
+	<caption>table title and/or explanatory text</caption>
+	<thead>
+		<tr>
+			<th>header</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+		</tr>
+	</tbody>
+</table>

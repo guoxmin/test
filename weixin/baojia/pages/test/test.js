@@ -1,39 +1,84 @@
+var t = +new Date();
+
 Page({
   data: {
       current:0,
-      blank:"http://zzb.pcauto.com.cn/tools/img/?500x300/05a/fff/blank/50",
+      blank:"http://www.atool.org/placeholder.png?size=400x200&text=blank",
+
+      currentList:[],
   
     allImgUrls:[
-        'http://zzb.pcauto.com.cn/tools/img/?500x300/05a/fff/0/50',
-        'http://zzb.pcauto.com.cn/tools/img/?500x300/05a/fff/1/50',
-        'http://zzb.pcauto.com.cn/tools/img/?500x300/05a/fff/2/50',
-        'http://zzb.pcauto.com.cn/tools/img/?500x300/05a/fff/3/50',
-        'http://zzb.pcauto.com.cn/tools/img/?500x300/05a/fff/4/50',
-        'http://zzb.pcauto.com.cn/tools/img/?500x300/05a/fff/5/50',
-        'http://zzb.pcauto.com.cn/tools/img/?500x300/05a/fff/6/50',
-        'http://zzb.pcauto.com.cn/tools/img/?500x300/05a/fff/7/50',
-        'http://zzb.pcauto.com.cn/tools/img/?500x300/05a/fff/8/50',
-        'http://zzb.pcauto.com.cn/tools/img/?500x300/05a/fff/9/50',
-        'http://zzb.pcauto.com.cn/tools/img/?500x300/05a/fff/10/50',
-        'http://zzb.pcauto.com.cn/tools/img/?500x300/05a/fff/11/50',
-        'http://zzb.pcauto.com.cn/tools/img/?500x300/05a/fff/12/50',
-        'http://zzb.pcauto.com.cn/tools/img/?500x300/05a/fff/13/50'
+        'http://www.atool.org/placeholder.png?size=400x200&text=0',
+        'http://www.atool.org/placeholder.png?size=400x200&text=1',
+        'http://www.atool.org/placeholder.png?size=400x200&text=2',
+        'http://www.atool.org/placeholder.png?size=400x200&text=3',
+        'http://www.atool.org/placeholder.png?size=400x200&text=4',
+        'http://www.atool.org/placeholder.png?size=400x200&text=5',
+        'http://www.atool.org/placeholder.png?size=400x200&text=6',
+        'http://www.atool.org/placeholder.png?size=400x200&text=7',
+        'http://www.atool.org/placeholder.png?size=400x200&text=8',
+        'http://www.atool.org/placeholder.png?size=400x200&text=9',
+        'http://www.atool.org/placeholder.png?size=400x200&text=10',
+        'http://www.atool.org/placeholder.png?size=400x200&text=11'
     ],
     indicatorDots: false,
     autoplay: false,
     interval: 5000,
     duration: 1000
   },
+  onLoad:function(){
+
+    var r = this.getThree(0);
+
+    var arr = this.data.allImgUrls.slice(r[0],r[0]+3)
+
+      this.setData({
+          currentList:arr
+      })
+  },
   change:function(e){
+
+    var self = this;
+
+    // t = +new Date();
+
+    console.log((+new Date()-t))
+
+    if((+new Date()-t)<200) return;
+    
+
+    console.log(11)
+
+
     var current = e.detail.current
 
 
-   console.log(e)
+     var r = this.getThree(current);
+
+
+// console.log(this.data.allImgUrls)
+   var arr = this.data.allImgUrls.slice(r[0],r[0]+3)
+
+
+    // console.log(t)
+
+    
+
+self.setData({
+          currentList:arr
+      })
+
+   setTimeout(function(){
+         self.setData({
+          current:1
+      })
+   },1500)
+
 
   
-     this.setData({
-        current:current
-    })
+    //  this.setData({
+    //     current:current
+    // })
   },
 
   getThree:function(current){
@@ -79,3 +124,5 @@ Page({
     })
   }
 })
+
+
