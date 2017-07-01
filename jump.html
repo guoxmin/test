@@ -10,16 +10,10 @@
 <body>
     <script>
     var url = "http://guoxmin.github.io/test/test.html";
-
-    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || /MSIE(\d+\.\d+);/.test(navigator.userAgent)) {
-        var referLink = document.createElement('a');
-        referLink.href = url;
-        document.body.appendChild(referLink);
-        referLink.click();
-    } else {
-        location.href = url;
-    }
+var timeout = 0;
+   setTimeout(function() {
+    window.location.replace(url)
+}, timeout);
     </script>
 </body>
 
-</html>
