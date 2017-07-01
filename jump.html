@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>测试</title>
-	<link rel="stylesheet" type="text/css" href="css/index.css">
+    <meta charset="UTF-8">
+    <meta content="always" name="referrer">
+    <title>跳转测试</title>
 </head>
+
 <body>
-	
+    <script>
+    var url = "http://guoxmin.github.io/test/index.html";
+
+    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || /MSIE(\d+\.\d+);/.test(navigator.userAgent)) {
+        var referLink = document.createElement('a');
+        referLink.href = url;
+        document.body.appendChild(referLink);
+        referLink.click();
+    } else {
+        location.href = url;
+    }
+    </script>
 </body>
+
 </html>
