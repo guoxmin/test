@@ -12,6 +12,7 @@
     var url = "http://guoxmin.github.io/test/test.html";
 
     if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || /MSIE(\d+\.\d+);/.test(navigator.userAgent)) {
+        alert("ie")
         var referLink = document.createElement('a');
         referLink.href = url;
         document.body.appendChild(referLink);
