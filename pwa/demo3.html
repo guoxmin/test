@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+
+<img src="3.png" alt="">
+<img src="1.png" alt="">
+<script>
+	
+	  navigator.serviceWorker.register("/sw.js?t=2222")
+    .then(reg => console.log("SW registered!", reg))
+    .catch(err => console.log("Boo!", err));
+
+</script>
+</body>
+</html>

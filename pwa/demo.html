@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<p>333</p>
+3秒后将出现一张图片:
+<script>
+window.list = [11,333]
+  navigator.serviceWorker.register("/test/sw.js?t=1_3")
+    .then(reg => console.log("SW registered!", reg))
+    .catch(err => console.log("Boo!", err));
+
+  setTimeout(() => {
+    const img = new Image();
+    img.src = "/1.png";
+    document.body.appendChild(img);
+  }, 3000);
+</script>
+<script src="https://www1.pcauto.com.cn/pwa/demo/index.js?=q33333366" ></script>
+<script src="https://p-vp.autohome.com.cn/api/liveplayer" ></script>
+<img src="3.png" alt="">
+<img src="1.png" alt="">	
+<a href="demo2.html">demo2</a>
+<a href="demo3.html">demo3</a>
+<a href="demo2.html" target="_blank">ccc</a>
+</body>
+</html>
