@@ -2,7 +2,7 @@ this.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open('v1').then(function(cache) {
             return cache.addAll([
-                'https://www1.pcauto.com.cn/pwa/demo/index.js'
+                '/test/pwa/demo.js'
             ]);
         })
     );
