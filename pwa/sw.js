@@ -1,16 +1,13 @@
-// this.addEventListener('install', function(event) {
-//   event.waitUntil(
-//     caches.open('v1').then(function(cache) {
-//       return cache.addAll([
-//         '/demo.html',
-//         '/1.png',
-//         '/2.png',
-//         '/3.png'
-//       ]);
-//     })
-//   );
-//   
-// });
+this.addEventListener('install', function(event) {
+    event.waitUntil(
+        caches.open('v1').then(function(cache) {
+            return cache.addAll([
+                '/pwa/demo/index.js'
+            ]);
+        })
+    );
+
+});
 // 
 // 2222
 
@@ -61,11 +58,11 @@ self.addEventListener('fetch', function(event) {
                     return response;
                 });
             })
-            .catch(function(){
+            .catch(function() {
 
                 return caches.match(event.request)
             })
-            
+
         );
     }
 
