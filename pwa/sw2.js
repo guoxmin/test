@@ -1,47 +1,71 @@
-self.addEventListener("install", event => {
-    console.log("V1 installing…");
+var CACHE_VERSION = 6;
 
+var CURRENT_CACHES = {
+    prefetch: 'prefetch-cache-v' + CACHE_VERSION
+};
+var FILE_LISTS = ['js', 'css', 'png'];
 
-    // 这里缓存一个 cat.svg
-    // event.waitUntil(
-    //     caches.open("static-v2").then(cache => cache.add("/2.png"))
-    // );
+self.addEventListener('install', event => {
+    event.waitUntil(self.skipWaiting())
 });
 
-self.addEventListener("activate", event => {
-    console.log("V1 now ready to handle fetches!");
+self.addEventListener('activate', event => {
+
+    event.waitUntil(
+       clients.claim(),
+
+        caches.keys().then(keys => Promise.all(
+            keys.map(key => {
+                if (key != CURRENT_CACHES.prefetch) {
+                    return caches.delete(key);
+                }
+            })
+        )).then(() => {
+            console.log(CURRENT_CACHES.prefetch+' now ready to handle fetches!');
+        })
+    );
 });
 
-// self.addEventListener("fetch", event => {
-//     const url = new URL(event.request.url);
 
-//     console.log(url)
 
-//     //如果是同域并且请求的是 dog.svg 的话，那么返回 cat.svg
-//     if (url.origin == location.origin && url.pathname == "/1.png") {
-//         event.respondWith(caches.match("/2.png"));
-//     }
-// });
+var goSaving = function(url) {
+    for (var file of FILE_LISTS) {
+        if (new URL(url).pathname.endsWith(file)) return true;
+    }
+    return false;
+}
 
 self.addEventListener('fetch', function(event) {
-    const url = new URL(event.request.url);
+    event.respondWith(
+        caches.match(event.request).then(function(resp) {
+            return resp || fetch(event.request).then(function(response) {
+                // 检查是否需要缓存
+                var url = event.request.url;
+                if (!goSaving(url)) return response;
+                console.log('save file:' + url);
+                // 需要缓存,则将资源放到 caches Object 中
+                return caches.open(CURRENT_CACHES.prefetch).then(function(cache) {
+                    console.log('update files like' + event.request.url);
 
-    console.log(url)
-    // if (url.origin == location.origin && url.pathname == "/demo.html") {
-
-        console.log(33)
-
-        event.respondWith(
-            caches.match(event.request)
-            .then(function(resp) {
-                return resp || fetch(event.request).then(function(response) {
-                    return caches.open('v1').then(function(cache) {
-                        cache.put(event.request, response.clone());
-                        return response;
-                    });
+                    cache.put(event.request, response.clone());
+                    return response;
                 });
-            })
-        );
-    // }
+            });
+        })
+    );
+});
 
+self.addEventListener('message', event => {
+    console.log("receive message" + event.data);
+    // 更新根目录下的 html 文件。
+    var url = event.data;
+    console.log("update root file " + url);
+    event.waitUntil(
+        caches.open(CURRENT_CACHES.prefetch).then(cache => {
+            return fetch(url)
+                .then(res => {
+                    cache.put(url, res);
+                })
+        })
+    )
 });

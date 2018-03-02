@@ -1,31 +1,49 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-</head>
-<body>
-<p>333</p>
-3秒后将出现一张图片:
-<script>
-window.list = [11,333]
-  navigator.serviceWorker.register("/test/pwa/sw.js?t=1_3")
-    .then(reg => console.log("SW registered!", reg))
-    .catch(err => console.log("Boo!", err));
 
-  setTimeout(() => {
-    const img = new Image();
-    img.src = "./1.png";
-    document.body.appendChild(img);
-  }, 3000);
-</script>
-<script src="https://www1.pcauto.com.cn/pwa/demo/index.js" ></script>
-<script src="demo.js?t=dd3" ></script>
-<script src="https://p-vp.autohome.com.cn/api/liveplayer" ></script>
-<img src="3.png" alt="">
-<img src="1.png" alt="">	
-<a href="demo2.html">demo2</a>
-<a href="demo3.html">demo3</a>
-<a href="demo2.html" target="_blank">ccc</a>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>444</p>
+    <div>
+        <button id="message">发送消息</button>
+    </div>
+    3秒后将出现一张图片:
+    <script src="https://www1.pcauto.com.cn/pwa/demo/index.js"></script>
+    <script src="demo.js?t=dd3"></script>
+    <script src="https://p-vp.autohome.com.cn/api/liveplayer"></script>
+    <img src="3.png" alt="">
+    <img src="1.png" alt="">
+    <a href="demo2.html">demo2</a>
+    <a href="demo3.html">demo3</a>
+    <a href="demo2.html" target="_blank">ccc</a>
+    <script>
+    window.list = [11, 333];
+
+    var sw = navigator.serviceWorker;
+    
+    sw.register("/test/pwa/sw.js?t=1_3")
+        .then(reg => console.log("SW registered!", ))
+        .catch(err => console.log("Boo!", err));
+
+    setTimeout(() => {
+        const img = new Image();
+        img.src = "./1.png";
+        document.body.appendChild(img);
+    }, 3000);
+
+    console.log(sw.controller)
+    document.querySelector("#message").onclick = function() {
+        send_message_to_sw(11)
+    }
+
+    function send_message_to_sw(msg) {
+        navigator.serviceWorker.controller.postMessage("Client 1 says '" + msg + "'");
+    }
+    </script>
 </body>
+
 </html>

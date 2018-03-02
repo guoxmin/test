@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+    <meta charset="UTF-8">
+    <title>Document</title>
 </head>
+
 <body>
+    <div>
+        8888999
+    </div>
+    <script src="//js.3conline.com/min/temp/v1/lib-jquery1.10.2.js"></script>
+    <script src="demo.js?t=6" type="text/javascript"></script>
+    <script>
+    var sw = navigator.serviceWorker;
 
+    sw.register("/test/pwa/sw2.js?t=1_3")
+        .then(reg => console.log("SW registered!", ))
+        .catch(err => console.log("Boo!", err));
 
+    if (sw.controller) {
+        console.log('send message ::'+location.href);
+        sw.controller.postMessage(location.href)
+    }
+    </script>
 </body>
+
 </html>

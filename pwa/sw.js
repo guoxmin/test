@@ -1,5 +1,7 @@
 this.addEventListener('install', function(event) {
+    console.log("install")
     event.waitUntil(
+        self.skipWaiting(),
         caches.open('v1').then(function(cache) {
             return cache.addAll([
                 '/test/pwa/demo.js'
@@ -8,12 +10,17 @@ this.addEventListener('install', function(event) {
     );
 
 });
-// 
-// 2222
+
+
+
 
 self.addEventListener("activate", event => {
     // clients.claim();
-    console.log("V1 now ready to handle fetches!");
+    console.log("activate");
+});
+
+self.addEventListener('message',event =>{
+  console.log("receive message" + event.data);
 });
 
 // self.addEventListener("fetch", event => {
@@ -30,14 +37,12 @@ self.addEventListener("activate", event => {
 self.addEventListener('fetch', function(event) {
     const url = new URL(event.request.url);
 
-    console.log(url)
-
     // 先缓存再网络
     if (url.pathname != "/demo.html") {
         event.respondWith(
             caches.match(event.request)
             .then(function(resp) {
-                console.log(resp)
+                // console.log(resp)
                 return resp || fetch(event.request).then(function(response) {
                     return caches.open('v1').then(function(cache) {
                         cache.put(event.request, response.clone());
