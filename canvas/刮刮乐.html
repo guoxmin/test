@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title>Document</title>
+    <style type="text/css" media="screen">
+    canvas {
+        border: 1px solid #ccc;
+
+        background: url(a.png) no-repeat;
+    }
+    </style>
+</head>
+
+<body>
+    <div style="position: relative; margin-top: 20px;">
+        <canvas id="canvas" width="500" height="500"></canvas>
+        <div id="color"></div>
+        <button id="invertbtn">invertbtn</button>
+        <button id="grayscalebtn">grayscalebtn</button>
+    </div>
+    <script>
+    window.onload = function() {
+
+        // draw();
+        drawMask();
+
+
+        var tap = false;
+
+        canvas.addEventListener("touchstart", function() {
+            tap = true;
+        }, false)
+
+        canvas.addEventListener("touchmove", function(e) {
+            if (tap) {
+                var x = e.layerX,
+                    y = e.layerY;
+
+            }
+        }, false)
+
+        canvas.addEventListener("touchend", function(){
+            tap = false;
+        }, false)
+    }
+
+
+
+    var ctx = canvas.getContext("2d");
+
+
+
+
+    function drawMask() {
+        ctx.save();
+
+        ctx.fillStyle = "#ccc";
+
+        ctx.fillRect(0, 0, 500, 500);
+
+        ctx.restore();
+
+
+    }
+
+
+
+    function drawEraser(x, y) {
+
+        ctx.save();
+
+        // ctx.globalCompositeOperation("destination-out");
+
+        ctx.arc(x - 5, y - 5, 10, 10);
+
+        ctx.fill();
+
+        ctx.restore();
+
+    }
+    </script>
+</body>
+
+</html>
