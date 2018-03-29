@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title>Document</title>
+    <style type="text/css" media="screen">
+    canvas {
+        border: 1px solid #f00;
+    }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <script>
+    window.onload = function() {
+
+        draw();
+    }
+
+
+
+    var ctx = document.getElementById('canvas').getContext('2d');
+    var offset = 0;
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.setLineDash([4, 2]);
+
+        ctx.lineDashOffset = -offset;
+
+        ctx.strokeRect(20, 20, 120, 120);
+    }
+
+
+
+    var requestAnimationFrame = (function() {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            function(callback) {
+                setTimeout(callback, 1000/60)
+            }
+    })();
+
+
+
+
+    function hd() {
+        offset++;
+
+        if (offset > 16) {
+            offset = 0;
+        }
+
+        draw();
+
+        // setTimeout(()=>{
+        //     hd();
+        // },20)
+
+        requestAnimationFrame(function() {
+            hd();
+        });
+
+
+
+    }
+
+
+
+    hd();
+    </script>
+</body>
+
+</html>
