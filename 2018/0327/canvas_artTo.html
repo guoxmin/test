@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title>Document</title>
+    <style type="text/css" media="screen">
+    canvas {
+        border: 1px solid #ccc;
+    }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <script>
+    window.onload = function() {
+
+        draw();
+    }
+
+
+    function draw() {
+
+
+        var ctx = document.getElementById('canvas').getContext('2d');
+
+        // ctx.moveTo(0, 0);
+        // ctx.lineTo(150, 120);
+        // ctx.lineTo(100, 270);
+        // ctx.stroke();
+
+        ctx.beginPath();
+        ctx.save();
+        ctx.strokeStyle = "red";
+        // ctx.moveTo(0, 0);
+        ctx.arcTo(150, 120, 100, 270, 50);
+        ctx.stroke();
+        ctx.restore();
+
+
+    }
+    </script>
+</body>
+
+</html>
