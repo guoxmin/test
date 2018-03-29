@@ -28,21 +28,38 @@
         drawMask();
 
 
+        var hastouch = "ontouchstart" in window ? true : false;
+
+        var tapstart = hastouch ? "touchstart" : "mousedown",
+            tapmove = hastouch ? "touchmove" : "mousemove",
+            tapend = hastouch ? "touchend" : "mouseup";
+
+        var canvasTop = canvas.scrollTop,
+            canvasLeft = canvas.offsetLeft;
+
         var tap = false;
 
-        canvas.addEventListener("touchstart", function() {
+        canvas.addEventListener(tapstart, function() {
             tap = true;
         }, false)
 
-        canvas.addEventListener("touchmove", function(e) {
+        canvas.addEventListener(tapmove, function(e) {
+
+            e.preventDefault();
+            
+                console.log(e);
             if (tap) {
-                var x = e.layerX,
-                    y = e.layerY;
+                var x = hastouch ? e.touches[0].pageX - canvasLeft:e.layerX,
+                    y = hastouch ? e.touches[0].pageY - canvasTop:e.layerY;
+
+
+                drawEraser(x,y);
+                // tt(x,y);
 
             }
         }, false)
 
-        canvas.addEventListener("touchend", function(){
+        canvas.addEventListener(tapend, function() {
             tap = false;
         }, false)
     }
@@ -72,12 +89,35 @@
 
         ctx.save();
 
-        // ctx.globalCompositeOperation("destination-out");
+        ctx.globalCompositeOperation = "destination-out";
 
-        ctx.arc(x - 5, y - 5, 10, 10);
+        ctx.moveTo(x,y);
+
+        ctx.fillStyle = "rgba(255,0,0,1)";
+
+        ctx.arc(x - 10, y - 10, 20,0,2*Math.PI,true);
 
         ctx.fill();
-        
+
+
+        ctx.restore();
+
+    }
+
+     function tt(x, y) {
+
+        ctx.save();
+
+        ctx.globalCompositeOperation = "source-over";
+
+        ctx.moveTo(0,0);
+
+        ctx.fillStyle = "rgba(255,255,0,0.5)";
+
+        ctx.arc(0,0, 220,0,2*Math.PI,true);
+
+        ctx.fill();
+
 
         ctx.restore();
 
