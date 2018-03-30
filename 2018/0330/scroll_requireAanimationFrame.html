@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>scroll_requireAanimationFrame</title>
+    <style type="text/css" media="screen">
+    body {
+        line-height: 4em;
+    }
+    </style>
+</head>
+
+<body>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+    <p>11111</p>
+
+    <script type="text/javascript">
+
+    var flg = false;
+
+    function throttle(position){
+
+        if(!flg){
+            window.requestAnimationFrame(function(){
+                handdle(position);
+                flg = false;
+            });
+
+            flg = true;
+        }
+    }
+
+
+    function handdle(position){
+        console.log(position)
+    }
+
+    window.addEventListener("scroll", function(e) {
+        var postion = {
+            scrollY,
+            scrollX
+        }
+        throttle(postion);
+    }, false)
+    </script>
+
+
+</body>
+
+</html>
