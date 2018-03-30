@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title>passive</title>
+    <style type="text/css" media="screen">
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        line-height: 2em;
+    }
+
+    img {
+        max-width: 100%;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <div>
+            <img src="../../test.jpg" alt="">
+        </div>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <div>
+            <img src="../../test.jpg" alt="">
+        </div>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <div>
+            <img src="../../test.jpg" alt="">
+        </div>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <div>
+            <img src="../../test.jpg" alt="">
+        </div>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <div>
+            <img src="../../test.jpg" alt="">
+        </div>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <div>
+            <img src="../../test.jpg" alt="">
+        </div>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <div>
+            <img src="../../test.jpg" alt="">
+        </div>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <div>
+            <img src="../../test.jpg" alt="">
+        </div>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <p>11111111111</p>
+        <div>
+            <img src="../../test.jpg" alt="">
+        </div>
+        <p>11111111111</p>
+        <p>11111111111</p>
+    </div>
+    <script>
+    // 检测是否支持passive
+    var supportPassive = false;
+
+    try {
+
+        var opts = Object.defineProperty({}, "passive", {
+            get: function() {
+                supportPassive = true;
+            }
+        })
+
+        window.addEventListener("test-passive", null, opts)
+
+    } catch (e) {}
+
+    if(!supportPassive){
+        alert("不支持passive");
+    }
+
+    content.addEventListener("touchmove", function(e){
+        console.log("touchmove");
+        // e.preventDefault();
+    }, supportPassive ? {passive:true}:false)
+
+    window.addEventListener("scroll",function(){
+        console.log(111)
+    })
+    </script>
+</body>
+
+</html>
