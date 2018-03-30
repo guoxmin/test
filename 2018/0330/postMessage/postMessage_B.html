@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="receive"></div>
+	<script type="text/javascript">
+
+		var trustOrigin = "http://test.pconline.com.cn";
+
+		window.addEventListener("message",function(e){
+			console.log(e);
+			if(e.origin != trustOrigin ) return;
+
+			receive.innerHTML += `<p>${e.origin}：${e.data}</p>`
+
+
+			window.top.postMessage("收到",trustOrigin);
+		})
+	</script>
+</body>
+</html>
