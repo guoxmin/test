@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    html {
+        font-size: 14px;
+    }
+
+    body {
+        background: #232425;
+        font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif, "Apple Color Emoji";
+    }
+
+    .contain {
+        width: 95%;
+        padding: 1rem;
+        max-width: 720px;
+        background: #f1f2f3;
+        margin: .65rem auto;
+        padding: .65rem;
+        border-radius: 4px;
+
+        >h2 {
+            font-size: 1.2rem;
+        }
+    }
+
+    .demo-contain {
+        >.output-contain {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #c1c2c3;
+            >.output {
+                font-size: 1rem;
+                margin-bottom: .65rem;
+            }
+        }
+    }
+
+    .preview__contain {
+        display: flex;
+        flex-flow: row wrap;
+        flex-basis: 100%;
+        align-items: flex-start;
+        box-sizing: border-box;
+
+        >div {
+            display: flex;
+            flex-basis: 50%;
+            flex-flow: column nowrap;
+            background: #c1c2c3;
+            box-sizing: border-box;
+            width: 50%;
+            margin: 1rem auto;
+            align-items: center;
+
+            >h3 {
+                margin: 0;
+                min-height: 45px;
+                font-weight: normal;
+                background: #f1f1f1;
+                width: 100%;
+                padding: .65rem;
+                font-size: 1.1rem;
+                box-sizing: border-box;
+            }
+
+            img {
+                display: block;
+                width: 60%;
+                margin: 1rem 0;
+                border: 1px solid #666666;
+            }
+        }
+    }
+
+    @media (max-width: 720px) {
+        .preview__contain {
+            >div {
+                flex-basis: 100%;
+                img {
+                    max-heigth: 400px;
+                }
+            }
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <section class="contain">
+        <h2>
+    使用 JavaScript 读取 JPEG 文件中 EXIF 的 Orientation 属性，利用 canvas 根据其对应值作出旋转。
+  </h2>
+        <div class="demo-contain">
+            <section class="output-contain">
+                <div class="output">
+                </div>
+            </section>
+            <div>
+                <input type="file">
+            </div>
+            <section class="preview__contain">
+                <div class="preview">
+                    <h3>没有处理旋转的结果：</h3>
+                    <img class="preview--not-rotated">
+                </div>
+                <div class="preview">
+                    <h3>2. 根据 Exif 中 Orientation 进行旋转了的结果：</h3>
+                    <img class="preview--rotated">
+                </div>
+            </section>
+        </div>
+    </section>
+    <script type="text/javascript">
+    ;
+    ((win, doc) => {
+        const $ = (selector) => doc.querySelector(selector);
+        const af2view = (af) => new Promise((resolve, reject) => resolve(new DataView(af)));
+
+        const af2Base64 = (af) => {
+            let base64 = btoa(
+                [].reduce.call(
+                    new Uint8Array(af), (p, c) => p + String.fromCharCode(c), '')
+            );
+            return 'data:image/gif;base64,' + base64;
+        }
+
+        const readFile = (file) => {
+            let FR = new FileReader();
+            return new Promise((resolve, reject) => {
+                FR.onloadend = (evt) => { resolve(evt.target.result); };
+                FR.onerror = (err) => { reject(event.target.error); };
+                FR.readAsArrayBuffer(file);
+            })
+        };
+
+        const rotateCtx = (orieVal, ctx, width, height) => {
+            switch (orieVal) {
+                case 2:
+                    ctx.transform(-1, 0, 0, 1, width, 0);
+                    break;
+                case 3:
+                    ctx.transform(-1, 0, 0, -1, width, height);
+                    break;
+                case 4:
+                    ctx.transform(1, 0, 0, -1, 0, height);
+                    break;
+                case 5:
+                    ctx.transform(0, 1, 1, 0, 0, 0);
+                    break;
+                case 6:
+                    ctx.transform(0, 1, -1, 0, height, 0);
+                    break;
+                case 7:
+                    ctx.transform(0, -1, -1, 0, height, width);
+                    break;
+                case 8:
+                    ctx.transform(0, -1, 1, 0, 0, width);
+                    break;
+                default:
+                    ctx.transform(1, 0, 0, 1, 0, 0);
+            }
+            return ctx;
+        };
+
+        const parse = (view) => {
+            return new Promise((resolve, reject) => {
+                let offset = 0,
+                    len = view.byteLength,
+                    APP1_offset, TIFF_offset, EXIF_offset, little, IFD0_offset, entries_count, entries_offset, resolve_value
+
+                // SOI marker
+                if (view.getUint16(0, false) != 0xFFD8) reject('不是 JPEG 文件')
+
+                // APP1 marker
+                while (offset < len) {
+                    if (view.getUint16(offset, false) == 0xFFE1) break;
+                    else offset += 2;
+                }
+
+                if (offset >= len) reject('没找到 APP1 标识')
+
+                // now offset point to APP1 marker 0xFFD8
+                APP1_offset = offset
+
+                // offset + 4 point offset to EXIF Header
+                EXIF_offset = APP1_offset + 4;
+
+                // check if  have 'Exif' ascii string: 0x45786966
+                if (view.getUint32(EXIF_offset, false) != 0x45786966) reject('无 EXIF 信息');
+
+                TIFF_offset = EXIF_offset + 6;
+
+                // offset + 4 point offset to EXIF header's 0x0000 
+                // offset + 4 + 2 point offset to TIFF header
+                // 0x4d4d: big endian, 0x4949: little endian
+                little = view.getUint16(TIFF_offset, false) == 0x4949 ? true : false
+
+                IFD0_offset = TIFF_offset + view.getUint32(TIFF_offset + 4);
+
+                entries_count = view.getUint16(IFD0_offset, little);
+                entries_offset = IFD0_offset + 2;
+
+                for (let i = 0; i < entries_count; i++) {
+                    // 0x0112's format is 3 which value format is unsigned short
+                    // components is 1 
+                    // 3 * 1 < 4 
+                    // so the value offset is actually value not the offset to the value
+                    if (view.getUint16(entries_offset + (i * 12), little) == 0x0112) {
+                        let resolve_value = view.getUint16(entries_offset + (i * 12) + 8, little)
+                        console.log(resolve_value)
+                        resolve(resolve_value)
+                    }
+                }
+                reject('没有 orientation 信息')
+            })
+        };
+
+        let $input = $('input[type="file"]'),
+            $output = $('.output'),
+            $preview = $('.preview--not-rotated'),
+            $preview2 = $('.preview--rotated');
+
+        $input.addEventListener('change', e => {
+            $output.innerHTML = '';
+
+            readFile(e.target.files[0])
+                .then(af => {
+                    let base64 = af2Base64(af),
+                        view = new DataView(af),
+                        image = new Image()
+
+
+                    image.src = base64;
+                    image.onload = (e) => {
+                        let target = e.target,
+                            canvas = doc.createElement('canvas'),
+                            ctx = canvas.getContext('2d'),
+                            width = 1200,
+                            height = 1200 / target.width * target.height;
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        // 1. 未获得 exif.orientation 值的 canvas 裁切
+                        ctx.drawImage(e.target, 0, 0, width, height);
+                        $preview.src = canvas.toDataURL();
+
+                        // 2.获取 exif.orientation 值之后的 canvas 裁切
+                        parse(view)
+                            .then(val => {
+                                $output.innerHTML = `图片 Exif 中 Orientation 值是 ${val}`;
+
+                                // 5, 6, 7, 8 是 1, 2, 3, 4 的镜像
+                                if ([5, 6, 7, 8].indexOf(val) > -1) {
+                                    canvas.width = height;
+                                    canvas.height = width;
+                                } else {
+                                    canvas.width = width;
+                                    canvas.height = height;
+                                }
+
+                                ctx = rotateCtx(val, ctx, width, height);
+                                ctx.drawImage(image, 0, 0, width, height);
+                                $preview2.src = canvas.toDataURL('image/jpeg', 1.0);
+
+                            }, message => $output.innerHTML = message)
+                    }
+                });
+        });
+    })(window, document)
+    </script>
+</body>
+
+</html>
