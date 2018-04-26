@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>聊天室</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no,viewport-fit=cover" />
+    <script type="text/javascript">
+    (function(e, t) { var i = document,
+            n = window; var l = i.documentElement; var a, r; var d, s = document.createElement("style"); var o;
+
+        function m() { var i = l.getBoundingClientRect().width; if (!t) { t = 540 } if (i > t) { i = t } var n = i * 100 / e;
+            s.innerHTML = "html{font-size:" + n + "px;}" } a = i.querySelector('meta[name="viewport"]');
+        r = "width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no,viewport-fit=cover"; if (a) { a.setAttribute("content", r) } else { a = i.createElement("meta");
+            a.setAttribute("name", "viewport");
+            a.setAttribute("content", r); if (l.firstElementChild) { l.firstElementChild.appendChild(a) } else { var c = i.createElement("div");
+                c.appendChild(a);
+                i.write(c.innerHTML);
+                c = null } } m(); if (l.firstElementChild) { l.firstElementChild.appendChild(s) } else { var c = i.createElement("div");
+            c.appendChild(s);
+            i.write(c.innerHTML);
+            c = null } n.addEventListener("resize", function() { clearTimeout(o);
+            o = setTimeout(m, 300) }, false);
+        n.addEventListener("pageshow", function(e) { if (e.persisted) { clearTimeout(o);
+                o = setTimeout(m, 300) } }, false); if (i.readyState === "complete") { i.body.style.fontSize = "16px" } else { i.addEventListener("DOMContentLoaded", function(e) { i.body.style.fontSize = "16px" }, false) } })(750, 750);
+    </script>
+    <link rel="stylesheet" type="text/css" href="css/client.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="chat" v-cloak>
+            <div class="row">
+                <input type="text" v-model="username" />
+            </div>
+            <div class="row">
+                <textarea v-model="msg"></textarea>
+            </div>
+            <div class="row">
+                <button @click="send" :disabled="(!username || !msg)" :class="{disabled:(!username || !msg)}">发送</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-message">
+        <ul>
+            <!--v-for-start-->
+            <li>
+                <p class="time"><span>20:2</span></p>
+                <div class="main"><img class="avatar" width="30" height="30" src="http://i1.3conline.com/images/upload/upc/face/31/04/81/53/31048153_120x120">
+                    <div class="text">Hello，这是一个基于Vue + Webpack构建的简单chat示例，聊天记录保存在localStorge。简单演示了Vue的基础特性和webpack配置。</div>
+                </div>
+            </li>
+            <li>
+                <p class="time"><span>20:2</span></p>
+                <div class="main"><img class="avatar" width="30" height="30" src="http://i1.3conline.com/images/upload/upc/face/31/04/81/53/31048153_120x120">
+                    <div class="text">项目地址: https://github.com/coffcer/vue-chat</div>
+                </div>
+            </li>
+            <li>
+                <p class="time"><span>20:16</span></p>
+                <div class="main self"><img class="avatar" width="30" height="30" src="http://i1.3conline.com/images/upload/upc/face/31/04/81/53/31048153_120x120">
+                    <div class="text">vsdf</div>
+                </div>
+            </li>
+            <!--v-for-end-->
+        </ul>
+    </div>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/vue.min.js"></script>
+    <script type="text/javascript" src="js/client.js"></script>
+</body>
+
+</html>
