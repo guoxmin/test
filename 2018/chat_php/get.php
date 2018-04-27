@@ -17,7 +17,7 @@ if(isset($_GET["pageSize"])){
 
 // $result = mysql_query($sql) or die('Query failed: ' . mysql_error());
 // 
-$sql = "SELECT * FROM `chat` LIMIT 0,".$pageSize;
+$sql = "SELECT * FROM `chat` order BY id ASC LIMIT 0,".$pageSize;
 
 
 $result = mysql_query($sql);
